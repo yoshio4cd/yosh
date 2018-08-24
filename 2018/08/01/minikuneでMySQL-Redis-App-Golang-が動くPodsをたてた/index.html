@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="goでwebアプリを作って見ようと思ったのでひとまず動作環境をminikubeを使用して作成してみます。お漏らしでとりあえず記事だけあげてます。 https://github.com/yoshio4cd/kube_go_mysql_redis_sample  App(Golang) DB(MySQL) Cache(Redis)をたてます。">
+    <meta name="description" content="goでwebアプリを作って見ようと思ったのでひとまず動作環境をminikubeを使用して作成してみます。お漏らしでとりあえず記事だけあげてます。 https://github.com/yoshio4cd/kube_go_mysql_redis_sample  App(nginx) DB(MySQL) Cache(Redis)をたてます。">
 <meta name="keywords" content="kubernetes,minikue,Golang,MySQL,Redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="minikuneでMySQL,Redis,Golangが動くPodsをたてる-1-">
 <meta property="og:url" content="https://yoshio4cd.github.io/2018/08/01/minikuneでMySQL-Redis-App-Golang-が動くPodsをたてた/index.html">
 <meta property="og:site_name" content="yoshi.io">
-<meta property="og:description" content="goでwebアプリを作って見ようと思ったのでひとまず動作環境をminikubeを使用して作成してみます。お漏らしでとりあえず記事だけあげてます。 https://github.com/yoshio4cd/kube_go_mysql_redis_sample  App(Golang) DB(MySQL) Cache(Redis)をたてます。">
+<meta property="og:description" content="goでwebアプリを作って見ようと思ったのでひとまず動作環境をminikubeを使用して作成してみます。お漏らしでとりあえず記事だけあげてます。 https://github.com/yoshio4cd/kube_go_mysql_redis_sample  App(nginx) DB(MySQL) Cache(Redis)をたてます。">
 <meta property="og:locale" content="ja">
-<meta property="og:updated_time" content="2018-08-02T14:17:59.740Z">
+<meta property="og:updated_time" content="2018-08-24T13:34:06.937Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="minikuneでMySQL,Redis,Golangが動くPodsをたてる-1-">
-<meta name="twitter:description" content="goでwebアプリを作って見ようと思ったのでひとまず動作環境をminikubeを使用して作成してみます。お漏らしでとりあえず記事だけあげてます。 https://github.com/yoshio4cd/kube_go_mysql_redis_sample  App(Golang) DB(MySQL) Cache(Redis)をたてます。">
+<meta name="twitter:description" content="goでwebアプリを作って見ようと思ったのでひとまず動作環境をminikubeを使用して作成してみます。お漏らしでとりあえず記事だけあげてます。 https://github.com/yoshio4cd/kube_go_mysql_redis_sample  App(nginx) DB(MySQL) Cache(Redis)をたてます。">
     
     
         
@@ -99,7 +99,7 @@
   <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://yoshio4cd.github.io/2018/08/01/minikuneでMySQL-Redis-App-Golang-が動くPodsをたてた/&name=minikuneでMySQL,Redis,Golangが動くPodsをたてる-1-&description=&lt;p&gt;goでwebアプリを作って見ようと思ったのでひとまず動作環境をminikubeを使用して作成してみます。&lt;br&gt;お漏らしでとりあえず記事だけあげてます。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/yoshio4cd/kube_go_mysql_redis_sample&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/yoshio4cd/kube_go_mysql_redis_sample&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;App(Golang)&lt;/li&gt;
+&lt;li&gt;App(nginx)&lt;/li&gt;
 &lt;li&gt;DB(MySQL)&lt;/li&gt;
 &lt;li&gt;Cache(Redis)&lt;br&gt;をたてます。&lt;/li&gt;
 &lt;/ul&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
@@ -107,7 +107,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#App-Golang"><span class="toc-number">1.</span> <span class="toc-text">App(Golang)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DB-MySQL"><span class="toc-number">2.</span> <span class="toc-text">DB(MySQL)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Cache-Redis"><span class="toc-number">3.</span> <span class="toc-text">Cache(Redis)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#できていないけどやりたいこと"><span class="toc-number">4.</span> <span class="toc-text">できていないけどやりたいこと</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#App-nginx"><span class="toc-number">1.</span> <span class="toc-text">App(nginx)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DB-MySQL"><span class="toc-number">2.</span> <span class="toc-text">DB(MySQL)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Cache-Redis"><span class="toc-number">3.</span> <span class="toc-text">Cache(Redis)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#できていないけどやりたいこと"><span class="toc-number">4.</span> <span class="toc-text">できていないけどやりたいこと</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -149,12 +149,12 @@
     <p>goでwebアプリを作って見ようと思ったのでひとまず動作環境をminikubeを使用して作成してみます。<br>お漏らしでとりあえず記事だけあげてます。</p>
 <p><a href="https://github.com/yoshio4cd/kube_go_mysql_redis_sample" target="_blank" rel="noopener">https://github.com/yoshio4cd/kube_go_mysql_redis_sample</a></p>
 <ul>
-<li>App(Golang)</li>
+<li>App(nginx)</li>
 <li>DB(MySQL)</li>
 <li>Cache(Redis)<br>をたてます。</li>
 </ul>
 <a id="more"></a>
-<h1 id="App-Golang"><a href="#App-Golang" class="headerlink" title="App(Golang)"></a>App(Golang)</h1><p>DB,Cacheへのアクセス確認のみ</p>
+<h1 id="App-nginx"><a href="#App-nginx" class="headerlink" title="App(nginx)"></a>App(nginx)</h1><p>DB,Cacheへのアクセス確認のみ</p>
 <h1 id="DB-MySQL"><a href="#DB-MySQL" class="headerlink" title="DB(MySQL)"></a>DB(MySQL)</h1><p>Secretを使用してMySQL User/Passwordを保存</p>
 <h1 id="Cache-Redis"><a href="#Cache-Redis" class="headerlink" title="Cache(Redis)"></a>Cache(Redis)</h1><p>特に変わったことはしていません</p>
 <h1 id="できていないけどやりたいこと"><a href="#できていないけどやりたいこと" class="headerlink" title="できていないけどやりたいこと"></a>できていないけどやりたいこと</h1><ul>
@@ -186,7 +186,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#App-Golang"><span class="toc-number">1.</span> <span class="toc-text">App(Golang)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DB-MySQL"><span class="toc-number">2.</span> <span class="toc-text">DB(MySQL)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Cache-Redis"><span class="toc-number">3.</span> <span class="toc-text">Cache(Redis)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#できていないけどやりたいこと"><span class="toc-number">4.</span> <span class="toc-text">できていないけどやりたいこと</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#App-nginx"><span class="toc-number">1.</span> <span class="toc-text">App(nginx)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DB-MySQL"><span class="toc-number">2.</span> <span class="toc-text">DB(MySQL)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Cache-Redis"><span class="toc-number">3.</span> <span class="toc-text">Cache(Redis)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#できていないけどやりたいこと"><span class="toc-number">4.</span> <span class="toc-text">できていないけどやりたいこと</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
@@ -203,7 +203,7 @@
   <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://yoshio4cd.github.io/2018/08/01/minikuneでMySQL-Redis-App-Golang-が動くPodsをたてた/&name=minikuneでMySQL,Redis,Golangが動くPodsをたてる-1-&description=&lt;p&gt;goでwebアプリを作って見ようと思ったのでひとまず動作環境をminikubeを使用して作成してみます。&lt;br&gt;お漏らしでとりあえず記事だけあげてます。&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/yoshio4cd/kube_go_mysql_redis_sample&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://github.com/yoshio4cd/kube_go_mysql_redis_sample&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;App(Golang)&lt;/li&gt;
+&lt;li&gt;App(nginx)&lt;/li&gt;
 &lt;li&gt;DB(MySQL)&lt;/li&gt;
 &lt;li&gt;Cache(Redis)&lt;br&gt;をたてます。&lt;/li&gt;
 &lt;/ul&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
